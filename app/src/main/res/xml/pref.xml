@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ru.nickmiller.magpie.ui.component.CustomSwitchPreference
+        android:icon="@drawable/ic_web"
+        android:key="1"
+        android:summary="Open external links within the app"
+        android:title="Instant Articles" />
+    <ru.nickmiller.magpie.ui.component.CustomSwitchPreference
+        android:defaultValue="true"
+        android:icon="@drawable/ic_synchronization"
+        android:key="2"
+        android:summary="Update feeds in background"
+        android:title="Synchronization" />
+    <ru.nickmiller.magpie.ui.component.CustomPreference
+        android:icon="@drawable/ic_notification"
+        android:key="3"
+        android:title="Notifications"/>
+    <!--  <ListPreference
+          android:entries="@array/entries"
+          android:entryValues="@array/entry_values"
+          android:icon="@drawable/ic_storage_24dp"
+          android:key="list1"
+          android:summary="Cache and remove articles after selected time"
+          android:title="Keep articles" />-->
+    <ru.nickmiller.magpie.ui.component.CustomPreference
+        android:icon="@drawable/ic_info"
+        android:summary="Version: 1.0.0"
+        android:title="About App" />
+
+</PreferenceScreen>

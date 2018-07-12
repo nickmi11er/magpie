@@ -4,12 +4,13 @@ import android.arch.lifecycle.AndroidViewModel
 import android.content.Context
 import android.databinding.ViewDataBinding
 import android.support.annotation.IdRes
-import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.inputmethod.InputMethodManager
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.annotation.LayoutRes
+import ru.nickmiller.magpie.ui.settings.SettingsFragment
+import kotlin.reflect.KClass
 
 
 abstract class BaseActivity<B : ViewDataBinding, M : AndroidViewModel> : AppCompatActivity() {
@@ -22,8 +23,8 @@ abstract class BaseActivity<B : ViewDataBinding, M : AndroidViewModel> : AppComp
         binding = DataBindingUtil.setContentView(this, contentLayout())
     }
 
-    protected fun replaceFragment(@IdRes containerId: Int, frClass: Class<Fragment>): Boolean {
-        val fragment = frClass.newInstance()
+    protected fun replaceFragment(@IdRes containerId: Int, frClass: KClass<SettingsFragment>): Boolean {
+        val fragment = frClass.java.newInstance()
         if (supportFragmentManager.backStackEntryCount > 0) {
             supportFragmentManager.popBackStack()
         }

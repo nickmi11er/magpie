@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+
     <data>
 
     </data>
@@ -14,8 +15,8 @@
         <android.support.design.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/coordinator"
             android:layout_width="0dp"
-            android:background="#fffdfa"
             android:layout_height="0dp"
+            android:background="#fffdfa"
             app:layout_constraintBottom_toTopOf="@+id/bottom_nav_view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -42,8 +43,9 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_gravity="center"
-                    app:matProg_barWidth="2dp"
+                    android:visibility="gone"
                     app:matProg_barColor="@color/colorPrimary"
+                    app:matProg_barWidth="2dp"
                     app:matProg_fillRadius="true"
                     app:matProg_progressIndeterminate="true" />
 
