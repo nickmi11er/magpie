@@ -8,6 +8,8 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
 import org.koin.android.architecture.ext.viewModel
 import ru.nickmiller.magpie.R
 import ru.nickmiller.magpie.databinding.ActivityMainBinding
+import ru.nickmiller.magpie.ui.base.BaseActivity
+import ru.nickmiller.magpie.ui.channels.ChannelsFragment
 import ru.nickmiller.magpie.ui.settings.SettingsFragment
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
@@ -42,7 +44,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
                     //R.id.item_favor -> replaceFragment(R.id.main_container, favoriteFr)
                     //R.id.item_search -> replaceFragment(R.id.main_container, channelsFragment)
                     R.id.item_settings -> replaceFragment(R.id.main_container, SettingsFragment::class)
-                    else -> replaceFragment(R.id.main_container, SettingsFragment::class)
+                    else -> replaceFragment(R.id.main_container, ChannelsFragment::class)
                 }
             } else {
                 false

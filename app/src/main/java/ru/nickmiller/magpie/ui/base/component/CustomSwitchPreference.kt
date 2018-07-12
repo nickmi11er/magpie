@@ -1,4 +1,4 @@
-package ru.nickmiller.magpie.ui.component
+package ru.nickmiller.magpie.ui.base.component
 
 import android.content.Context
 import android.support.v14.preference.SwitchPreference
