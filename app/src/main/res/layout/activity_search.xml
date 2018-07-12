@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data></data>
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.search.SearchActivity">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#fafafa">
+
+                <ImageButton
+                    android:id="@+id/back_btn"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerVertical="true"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_back_arrow"
+                    android:tint="@color/colorIcons" />
+
+                <EditText
+                    android:id="@+id/search_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/back_btn"
+                    android:layout_toStartOf="@+id/clear_btn"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="@font/roboto_light"
+                    android:hint="Search..."
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    android:singleLine="true" />
+
+                <ImageButton
+                    android:id="@+id/clear_btn"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_close"
+                    android:tint="@color/colorIcons"
+                    android:visibility="invisible" />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/search_recycler"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+
+        <com.pnikosis.materialishprogress.ProgressWheel
+            android:id="@+id/progress_view"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/search_recycler"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView"
+            app:matProg_barColor="@color/colorPrimary"
+            app:matProg_barWidth="2dp"
+            app:matProg_fillRadius="true"
+            app:matProg_progressIndeterminate="true" />
+
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

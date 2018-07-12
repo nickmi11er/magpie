@@ -6,4 +6,6 @@
 
     <color name="textMain">#4b4b4b</color>
     <color name="textSecondary">#9e9e9e</color>
+
+    <color name="colorIcons">#424242</color>
 </resources>
