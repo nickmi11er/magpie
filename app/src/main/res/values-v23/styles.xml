@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">#fafafa</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="actionBarStyle">@style/AppTheme.ActionBar</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
+    </style>
+
+    <style name="AppTheme.ActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="elevation">0dp</item>
+    </style>
+
+    <style name="AppTheme.BottomMenu" parent="Theme.AppCompat.Light">
+        <item name="colorPrimary">@color/colorPrimary</item>
+    </style>
+</resources>
