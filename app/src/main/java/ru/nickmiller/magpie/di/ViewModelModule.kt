@@ -28,7 +28,7 @@ val serachChannelModule = applicationContext {
 }
 
 val channelsModule = applicationContext {
-    viewModel { ChannelsViewModel(androidApplication()) }
+    viewModel { ChannelsViewModel(androidApplication(), get()) }
 }
  
  

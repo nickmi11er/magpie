@@ -10,6 +10,7 @@ import jp.wasabeef.recyclerview.animators.FadeInUpAnimator
 import org.koin.android.architecture.ext.viewModel
 import ru.nickmiller.magpie.R
 import ru.nickmiller.magpie.databinding.ActivitySearchBinding
+import ru.nickmiller.magpie.model.FeedChannel
 
 
 import ru.nickmiller.magpie.ui.base.BaseActivity
@@ -37,16 +38,23 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
             clearBtn.visibility = if (it!!.isNotEmpty()) View.VISIBLE else View.GONE
         })
         viewModel.searchAction.observe(this, Observer {
+            adapter.channels.clear()
+            adapter.notifyDataSetChanged()
             hideKeyboard()
             progress.spin()
         })
         viewModel.channels.observe(this, Observer {
             progress.stopSpinning()
-            it.let {
-                adapter.channels = it!!
-                adapter.notifyDataSetChanged()
+            if (it != null && it.isNotEmpty()) {
+                adapter.channels = it as MutableList<FeedChannel>
+            } else {
+                adapter.channels.clear()
             }
+            adapter.notifyDataSetChanged()
         })
+        adapter.setOnChannelSubListener { action, channel ->
+            viewModel.onChannelClick(action, channel)
+        }
     }
 
     private fun initViews() {

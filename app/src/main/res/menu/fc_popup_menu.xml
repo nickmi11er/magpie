@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/fc_subscribe"
+        android:title="@string/item_fc_subscribe" />
+
+    <item
+        android:id="@+id/fc_open_url"
+        android:title="@string/item_fc_open_url" />
+
+</menu>

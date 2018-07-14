@@ -4,6 +4,8 @@ import android.app.Application
 import android.arch.lifecycle.*
 import android.view.inputmethod.EditorInfo
 import ru.nickmiller.magpie.data.repository.FeedChannelRepository
+import ru.nickmiller.magpie.model.FeedChannel
+import ru.nickmiller.magpie.ui.channels.FeedChannelAdapter
 
 
 class SearchViewModel(val app: Application, val repository: FeedChannelRepository) : AndroidViewModel(app) {
@@ -23,5 +25,13 @@ class SearchViewModel(val app: Application, val repository: FeedChannelRepositor
             return true
         }
         return false
+    }
+
+    fun onChannelClick(action: FeedChannelAdapter.ChActionType, channel: FeedChannel) {
+        when (action) {
+            FeedChannelAdapter.ChActionType.SUBSCRIBE -> repository.subscribe(channel)
+            FeedChannelAdapter.ChActionType.UNSUBSCRIBE -> repository.unsubscribe(channel)
+            FeedChannelAdapter.ChActionType.OPEN_URL -> println(channel.feedId)
+        }
     }
 }
