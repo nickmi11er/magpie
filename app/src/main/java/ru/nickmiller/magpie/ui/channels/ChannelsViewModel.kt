@@ -6,7 +6,6 @@ import android.content.Intent
 import android.view.View
 import ru.nickmiller.magpie.data.repository.FeedChannelRepository
 import ru.nickmiller.magpie.model.FeedChannel
-import ru.nickmiller.magpie.ui.search.SearchActivity
 
 
 class ChannelsViewModel(val app: Application, val repository: FeedChannelRepository) : AndroidViewModel(app) {

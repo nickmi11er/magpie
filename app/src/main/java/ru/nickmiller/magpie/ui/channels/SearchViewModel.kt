@@ -1,4 +1,4 @@
-package ru.nickmiller.magpie.ui.search
+package ru.nickmiller.magpie.ui.channels
 
 import android.app.Application
 import android.arch.lifecycle.*

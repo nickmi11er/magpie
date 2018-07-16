@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.search.SearchActivity"
+            android:name=".ui.channels.SearchActivity"
             android:label="@string/title_activity_search"
             android:theme="@style/AppTheme" />
     </application>

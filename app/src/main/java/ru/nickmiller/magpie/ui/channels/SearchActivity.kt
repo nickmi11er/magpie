@@ -1,4 +1,4 @@
-package ru.nickmiller.magpie.ui.search
+package ru.nickmiller.magpie.ui.channels
 
 import android.arch.lifecycle.Observer
 import android.os.Bundle
@@ -14,7 +14,6 @@ import ru.nickmiller.magpie.model.FeedChannel
 
 
 import ru.nickmiller.magpie.ui.base.BaseActivity
-import ru.nickmiller.magpie.ui.channels.FeedChannelAdapter
 
 class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
     lateinit var clearBtn: View
