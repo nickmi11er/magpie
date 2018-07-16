@@ -5,6 +5,7 @@ import android.arch.persistence.room.Room
 import org.koin.android.ext.android.startKoin
 import ru.nickmiller.magpie.data.cache.AppDatabase
 import ru.nickmiller.magpie.di.channelsModule
+import ru.nickmiller.magpie.di.feedModule
 import ru.nickmiller.magpie.di.serachChannelModule
 
 
@@ -15,7 +16,8 @@ class MagpieApp : Application() {
                 .fallbackToDestructiveMigration()
                 .build()
         startKoin(this, listOf(channelsModule,
-                serachChannelModule))
+                serachChannelModule,
+                feedModule))
     }
 
     companion object {
