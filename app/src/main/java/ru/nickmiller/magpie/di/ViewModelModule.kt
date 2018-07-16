@@ -35,7 +35,7 @@ val channelsModule = applicationContext {
 }
 
 val feedModule = applicationContext {
-    viewModel { FeedViewModel(androidApplication(), get()) }
+    viewModel { FeedViewModel(androidApplication(), get(), it["bookmarks"] ?: false) }
     bean { ArticlesRepository(get(), get()) }
     bean { LocalArticlesStore(get(), get()) }
     bean { get<AppDatabase>().getArticlesDao() }

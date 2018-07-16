@@ -10,20 +10,22 @@ class ArticlesRepository(val cloudStore: CloudArticlesStore, val localStore: Loc
     val fetchStatus
         get() = cloudStore.fetchStatus
 
-    fun getArticles() = MediatorLiveData<List<Article>>().apply {
-        addSource(localStore.getArticles()) {
-            //val tmp = if (this.value != null) this.value as MutableList else mutableListOf()
-            //tmp.addAll(it as MutableList)
-            //this.value = tmp
-            postValue(it)
-        }
+    fun getArticles(bookmarks: Boolean = false) =
+            if (bookmarks) localStore.getBookmarks()
+            else MediatorLiveData<List<Article>>().apply {
+                addSource(localStore.getArticles()) {
+                    //val tmp = if (this.value != null) this.value as MutableList else mutableListOf()
+                    //tmp.addAll(it as MutableList)
+                    //this.value = tmp
+                    postValue(it)
+                }
 
-        addSource(cloudStore.getArticles()) {
-            //val tmp = if (this.value != null) this.value as MutableList else mutableListOf()
-            //tmp.addAll(it as MutableList)
-            //this.value = tmp
-            postValue(it)
-        }
-    }
+                addSource(cloudStore.getArticles()) {
+                    //val tmp = if (this.value != null) this.value as MutableList else mutableListOf()
+                    //tmp.addAll(it as MutableList)
+                    //this.value = tmp
+                    postValue(it)
+                }
+            }
 
 }

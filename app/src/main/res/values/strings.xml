@@ -2,6 +2,7 @@
     <string name="app_name">Magpie</string>
     <string name="title_channels">Channels</string>
     <string name="title_feed">Feed</string>
+    <string name="title_bookmarks">Bookmarks</string>
     <string name="title_activity_search">SearchActivity</string>
     <string name="hint_search_channel">Search channel…</string>
     <string name="item_fc_subscribe">Subscribe</string>

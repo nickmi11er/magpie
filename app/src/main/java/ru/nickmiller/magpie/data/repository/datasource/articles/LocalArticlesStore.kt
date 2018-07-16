@@ -13,4 +13,7 @@ class LocalArticlesStore(val dao: ArticlesDao, val mapper: ArticleMapper) {
     fun getArticles(): LiveData<List<Article>> =
             dao.getAllArticles().map { mapper.transform(it) }
 
+    fun getBookmarks(): LiveData<List<Article>> =
+            dao.getFavoriteArticles().map { mapper.transform(it) }
+
 }

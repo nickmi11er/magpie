@@ -7,11 +7,11 @@ import ru.nickmiller.magpie.data.repository.ArticlesRepository
 import ru.nickmiller.magpie.utils.switchMap
 
 
-class FeedViewModel(app: Application, val repository: ArticlesRepository) : AndroidViewModel(app) {
+class FeedViewModel(app: Application, val repository: ArticlesRepository, val bookmarks: Boolean) : AndroidViewModel(app) {
     private val refresh = MutableLiveData<RefreshAction>()
 
     val articles
-        get() = refresh.switchMap { repository.getArticles() }
+        get() = refresh.switchMap { repository.getArticles(bookmarks) }
 
     val fetchStatus
         get() = repository.fetchStatus

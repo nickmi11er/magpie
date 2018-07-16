@@ -10,19 +10,18 @@ import org.koin.android.architecture.ext.viewModel
 import ru.nickmiller.magpie.R
 import ru.nickmiller.magpie.databinding.FragmentFeedBinding
 import ru.nickmiller.magpie.ui.MainActivity
-import ru.nickmiller.magpie.utils.FetchStatus
 
 
-class FeedFragment : BaseFeedFragment<FragmentFeedBinding, FeedViewModel>() {
+class BookmarksFragment : BaseFeedFragment<FragmentFeedBinding, FeedViewModel>() {
     override lateinit var swipeContainer: SwipeRefreshLayout
     override lateinit var recycler: RecyclerView
     lateinit var infoMsg: TextView
 
     override fun contentLayout(): Int = R.layout.fragment_feed
 
-    override fun getTitleRes(): Int = R.string.title_feed
+    override fun getTitleRes(): Int = R.string.title_bookmarks
 
-    override val viewModel by viewModel<FeedViewModel> { mapOf("bookmarks" to false) }
+    override val viewModel by viewModel<FeedViewModel> { mapOf("bookmarks" to true) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -43,23 +42,14 @@ class FeedFragment : BaseFeedFragment<FragmentFeedBinding, FeedViewModel>() {
     private fun initHandlers() {
         setupRefreshListener { viewModel.refresh() }
         viewModel.articles.observe(this, Observer {
-            it?.let {
-                adapter.addArticles(it)
-                adapter.notifyDataSetChanged()
-            }
-        })
-        viewModel.fetchStatus.observe(this, Observer {
-            it?.let {
-                when(it.status) {
-                    FetchStatus.PROGRESS -> {
-                        println("ALL: ${it.all}    COMPLETED: ${it.completed}     ERRORS: ${it.errors}")
-                    }
-                    FetchStatus.STARTED -> {
-
-                    }
-                    FetchStatus.COMPLETED -> {
-                        swipeContainer.isRefreshing = false
-                    }
+            it?.let { articles ->
+                if (articles.isNotEmpty()) {
+                    infoMsg.visibility = View.GONE
+                    adapter.addArticles(articles)
+                    adapter.notifyDataSetChanged()
+                } else {
+                    infoMsg.text = "Your bookmarks will be shown here."
+                    infoMsg.visibility = View.VISIBLE
                 }
             }
         })
