@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="article"
+            type="ru.nickmiller.magpie.model.Article" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fafafa"
+        android:foreground="?attr/selectableItemBackground">
+
+        <TextView
+            android:id="@+id/article_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto_light"
+            android:text="@{article.title}"
+            android:textColor="#212121"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:visibility="visible"
+            app:layout_constraintEnd_toStartOf="@+id/article_image"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Заголовок статьи" />
+
+        <TextView
+            android:id="@+id/article_body"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/roboto_light"
+            android:maxLines="3"
+            android:text="@{article.description}"
+            android:textColor="@color/textMain"
+            android:visibility="visible"
+            app:layout_constraintEnd_toStartOf="@+id/article_image"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/article_title"
+            tools:text="Тело статьи. Здесь должен быть какой-нибудь текст. Но так как мне лень придумывать его, здесь будет это." />
+
+        <ImageView
+            android:id="@+id/article_image"
+            android:layout_width="86dp"
+            android:layout_height="86dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:url="@{article.imageUrl}" />
+
+        <ImageView
+            android:id="@+id/account_icon"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/time_from_posted"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/account_name"
+            app:url="@{article.acIconUrl}" />
+
+
+        <TextView
+            android:id="@+id/account_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/roboto_light"
+            android:text="@{article.acTitle}"
+            android:maxLines="1"
+            android:textAllCaps="false"
+            android:textColor="@color/textMain"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toStartOf="@+id/bookmark_art"
+            app:layout_constraintStart_toEndOf="@+id/account_icon"
+            app:layout_constraintTop_toTopOf="@+id/barrier"
+            tools:text="Account name" />
+
+        <TextView
+            android:id="@+id/time_from_posted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/roboto_light"
+            android:textAllCaps="false"
+            android:textColor="@color/textSecondary"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/account_icon"
+            app:layout_constraintTop_toBottomOf="@+id/account_name"
+            app:articleDate="@{article.pubDate}"
+            tools:text="1h" />
+
+        <android.support.constraint.Barrier
+            android:id="@+id/barrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="article_image,article_body"
+            app:layout_constraintBottom_toBottomOf="@+id/article_body" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="0dp"
+            android:layout_height="4dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/shadow_art_sep"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/time_from_posted" />
+
+        <ImageButton
+            android:id="@+id/bookmark_art"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:layout_marginEnd="8dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:padding="12dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_bookmark"
+            android:tint="@color/textSecondary"
+            app:layout_constraintBottom_toBottomOf="@+id/time_from_posted"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/account_name" />
+
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
