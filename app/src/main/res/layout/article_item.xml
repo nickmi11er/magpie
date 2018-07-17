@@ -141,6 +141,7 @@
             android:scaleType="centerInside"
             android:src="@drawable/ic_bookmark"
             android:tint="@color/textSecondary"
+            app:bookmark="@{article.favorite}"
             app:layout_constraintBottom_toBottomOf="@+id/time_from_posted"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/account_name" />

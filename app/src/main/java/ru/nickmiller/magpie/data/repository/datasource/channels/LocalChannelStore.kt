@@ -4,13 +4,14 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.Transformations
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
+import ru.nickmiller.magpie.data.cache.dao.ArticlesDao
 import ru.nickmiller.magpie.data.cache.dao.ChannelsDao
 import ru.nickmiller.magpie.data.entity.feedChannel.FeedChannelEntity
 import ru.nickmiller.magpie.data.entity.feedChannel.FeedChannelMapper
 import ru.nickmiller.magpie.model.FeedChannel
 
 
-class LocalChannelStore(val dao: ChannelsDao, val mapper: FeedChannelMapper) {
+class LocalChannelStore(val dao: ChannelsDao, val artsDao: ArticlesDao, val mapper: FeedChannelMapper) {
 
     fun getChannelsList(): LiveData<List<FeedChannel>> =
             Transformations.map(dao.getAllSubs()) { mapper.transform(it) }
@@ -24,6 +25,7 @@ class LocalChannelStore(val dao: ChannelsDao, val mapper: FeedChannelMapper) {
 
     fun unsubscribeChannel(channelEntity: FeedChannelEntity) = Single.fromCallable {
         dao.deleteSub(channelEntity)
+        artsDao.clearCacheWithChannel(channelEntity.feedId)
     }
             .subscribeOn(Schedulers.io())
             .subscribe()

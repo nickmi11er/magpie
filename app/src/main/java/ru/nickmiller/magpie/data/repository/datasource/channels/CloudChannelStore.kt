@@ -2,6 +2,10 @@ package ru.nickmiller.magpie.data.repository.datasource.channels
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Response
@@ -30,6 +34,23 @@ class CloudChannelStore(val netHelper: NetHelper, val mapper: FeedChannelMapper)
             }
         })
         return data
+    }
+
+    fun getTopicChanels(title: String): LiveData<List<FeedChannel>> {
+        val ld = MutableLiveData<List<FeedChannel>>()
+        FirebaseDatabase.getInstance().reference.child("Topics").child("data").child(title).addValueEventListener(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+            }
+
+            override fun onDataChange(p0: DataSnapshot) {
+                val channels = mutableListOf<FeedChannel>()
+                for (channel in p0.children) {
+                    channels.add(channel.getValue(FeedChannel::class.java) ?: continue)
+                }
+                ld.postValue(channels)
+            }
+        })
+        return ld
     }
 
 }

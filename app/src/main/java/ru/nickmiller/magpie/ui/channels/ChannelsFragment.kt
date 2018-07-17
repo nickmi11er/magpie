@@ -46,7 +46,7 @@ class ChannelsFragment : BaseFragment<FragmentChannelsBinding, ChannelsViewModel
             }
             adapter.notifyDataSetChanged()
         })
-        adapter.setOnChannelSubListener { action, channel -> viewModel.onChannelClick(action, channel) }
+        adapter.setOnChannelSubListener { action, channel, _ -> viewModel.onChannelClick(action, channel, null) }
     }
 
     private fun initViews() {

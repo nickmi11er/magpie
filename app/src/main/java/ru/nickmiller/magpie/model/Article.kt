@@ -18,7 +18,8 @@ data class Article(var link: String? = null,
                    var acLink: String? = null,
                    var pubDate: Date? = null,
                    var title: String? = null,
-                   var acIconUrl: String? = null) : Parcelable {
+                   var acIconUrl: String? = null,
+                   var channelId: String? = null) : Parcelable {
 
     override fun equals(other: Any?): Boolean {
         return this.link == (other as Article).link

@@ -13,19 +13,16 @@ class ArticlesRepository(val cloudStore: CloudArticlesStore, val localStore: Loc
     fun getArticles(bookmarks: Boolean = false) =
             if (bookmarks) localStore.getBookmarks()
             else MediatorLiveData<List<Article>>().apply {
-                addSource(localStore.getArticles()) {
-                    //val tmp = if (this.value != null) this.value as MutableList else mutableListOf()
-                    //tmp.addAll(it as MutableList)
-                    //this.value = tmp
-                    postValue(it)
-                }
+                addSource(localStore.getArticles()) { postValue(it) }
 
                 addSource(cloudStore.getArticles()) {
-                    //val tmp = if (this.value != null) this.value as MutableList else mutableListOf()
-                    //tmp.addAll(it as MutableList)
-                    //this.value = tmp
-                    postValue(it)
+                    it?.let {
+                        localStore.cacheArticles(it).subscribe()
+                    }
                 }
             }
 
+    fun bookmark(article: Article) = localStore.bookmark(article).subscribe()
+
+    fun deleteBookmark(article: Article) = localStore.deleteBookmark(article).subscribe()
 }

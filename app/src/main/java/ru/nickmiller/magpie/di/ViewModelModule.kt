@@ -25,7 +25,7 @@ val serachChannelModule = applicationContext {
     bean { FeedChannelMapper() }
     bean { MagpieApp.database }
     bean { get<AppDatabase>().getChannelDao() }
-    bean { LocalChannelStore(get(), get()) }
+    bean { LocalChannelStore(get(), get(), get()) }
     bean { CloudChannelStore(get(), get()) }
     bean { NetHelper() }
 }

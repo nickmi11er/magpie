@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import org.koin.android.architecture.ext.viewModel
@@ -13,7 +14,7 @@ import ru.nickmiller.magpie.ui.MainActivity
 import ru.nickmiller.magpie.utils.FetchStatus
 
 
-class FeedFragment : BaseFeedFragment<FragmentFeedBinding, FeedViewModel>() {
+class FeedFragment : BaseFeedFragment<FragmentFeedBinding>() {
     override lateinit var swipeContainer: SwipeRefreshLayout
     override lateinit var recycler: RecyclerView
     lateinit var infoMsg: TextView
@@ -37,6 +38,7 @@ class FeedFragment : BaseFeedFragment<FragmentFeedBinding, FeedViewModel>() {
         swipeContainer = binding.swipeContainer
         infoMsg = binding.infoMsg
         adapter = ArticlesAdapter()
+        adapter.articleClickListener = viewModel.clickListener
         setUpRecycler()
     }
 
@@ -52,13 +54,19 @@ class FeedFragment : BaseFeedFragment<FragmentFeedBinding, FeedViewModel>() {
             it?.let {
                 when(it.status) {
                     FetchStatus.PROGRESS -> {
-                        println("ALL: ${it.all}    COMPLETED: ${it.completed}     ERRORS: ${it.errors}")
+                        Log.d(this.javaClass.name, "ALL: ${it.all}    COMPLETED: ${it.completed}     ERRORS: ${it.errors}")
                     }
                     FetchStatus.STARTED -> {
 
                     }
                     FetchStatus.COMPLETED -> {
                         swipeContainer.isRefreshing = false
+                        if (it.all == 0) {
+                            infoMsg.text = "This is your feed. Subscribe some channels to read any articles."
+                            infoMsg.visibility = View.VISIBLE
+                        } else {
+                            infoMsg.visibility = View.GONE
+                        }
                     }
                 }
             }

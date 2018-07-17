@@ -11,6 +11,7 @@ import ru.nickmiller.magpie.model.Article
 
 class ArticlesAdapter : RecyclerView.Adapter<ArticlesAdapter.ArticleViewHolder>() {
     var articles = mutableListOf<Article>()
+    var articleClickListener: ((Action, Article) -> Unit)? = null
 
     fun addArticle(item: Article) {
         if (articles.contains(item) || item.pubDate == null) return
@@ -39,6 +40,9 @@ class ArticlesAdapter : RecyclerView.Adapter<ArticlesAdapter.ArticleViewHolder>(
 
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
         holder.bind(articles[position])
+        holder.binding.bookmarkArt.setOnClickListener {
+            articleClickListener?.invoke(Action.BOOKMARK, articles[position])
+        }
     }
 
     class ArticleViewHolder(val binding: ArticleItemBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -48,4 +52,8 @@ class ArticlesAdapter : RecyclerView.Adapter<ArticlesAdapter.ArticleViewHolder>(
         }
     }
 
+    enum class Action {
+        BOOKMARK,
+        SHOW_ARTICLE
+    }
 }

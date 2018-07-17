@@ -18,7 +18,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     override fun contentLayout(): Int = R.layout.activity_main
     override val viewModel by viewModel<MainViewModel>()
     lateinit var navView: BottomNavigationViewEx
-    lateinit var titleView: TextView
+    var titleView: TextView? = null
     lateinit var toolbar: Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,6 +65,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     }
 
     fun setTitle(title: String) {
-        titleView.text = title
+        titleView?.let { it.text = title }
     }
 }

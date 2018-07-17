@@ -10,6 +10,7 @@ import android.support.annotation.LayoutRes
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.inputmethod.InputMethodManager
+import ru.nickmiller.magpie.utils.mainLog
 import kotlin.reflect.KClass
 
 
@@ -20,6 +21,7 @@ abstract class BaseActivity<B : ViewDataBinding, M : AndroidViewModel> : AppComp
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        mainLog("${this.localClassName} was created")
         binding = DataBindingUtil.setContentView(this, contentLayout())
     }
 

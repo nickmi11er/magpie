@@ -32,7 +32,7 @@ class CloudArticlesStore(val netHelper: NetHelper, val mapper: FeedMapper, val a
                     try {
                         val resp = netHelper.call(it.feedId.replaceFirst("feed/", "")).execute()
                         if (resp?.body() != null) {
-                            res.add(Resource.success(mapper.syndToFeed(SyndFeedInput().build(XmlReader(resp.body()!!.byteStream())), it.iconUrl)))
+                            res.add(Resource.success(mapper.syndToFeed(SyndFeedInput().build(XmlReader(resp.body()!!.byteStream())), it.iconUrl, it.feedId)))
                             completed++
                         } else {
                             res.add(Resource.error("Illegal response value", null))

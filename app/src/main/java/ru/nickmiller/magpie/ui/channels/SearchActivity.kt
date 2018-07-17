@@ -51,8 +51,8 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
             }
             adapter.notifyDataSetChanged()
         })
-        adapter.setOnChannelSubListener { action, channel ->
-            viewModel.onChannelClick(action, channel)
+        adapter.setOnChannelSubListener { action, channel, topic ->
+            viewModel.onChannelClick(action, channel, topic)
         }
     }
 
@@ -64,7 +64,7 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
         recycler.layoutManager = LinearLayoutManager(this)
         recycler.itemAnimator = FadeInUpAnimator()
         recycler.itemAnimator.addDuration = 100
-        adapter = FeedChannelAdapter()
+        adapter = FeedChannelAdapter(true)
         recycler.adapter = adapter
     }
 

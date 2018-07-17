@@ -29,16 +29,6 @@ class FeedChannelRepository(val fcmapper: FeedChannelMapper, val localStore: Loc
                     res.value = tmp
                     res
                 }
-
-//                val mediatorLiveData = MediatorLiveData<List<FeedChannel>>()
-//                mediatorLiveData.addSource(cloudStore.getChannelsList(keyword)) {
-//                    val newElements = it as List<FeedChannel>
-//                    val set = mediatorLiveData.value?.toMutableSet()
-//                    set?.addAll(newElements)
-//                    mediatorLiveData.value = set?.toMutableList()
-//                }
-//                mediatorLiveData.addSource(localStore.getChannelsList()) { mediatorLiveData.value = it }
-//                mediatorLiveData
             }
 
 
@@ -51,6 +41,9 @@ class FeedChannelRepository(val fcmapper: FeedChannelMapper, val localStore: Loc
         channel.isSubscribed = false
         localStore.unsubscribeChannel(fcmapper.map(channel)!!)
     }
+
+    fun getTopicChannel(title: String) = cloudStore.getTopicChanels(title)
+
 
 }
  
