@@ -43,6 +43,9 @@ class ArticlesAdapter : RecyclerView.Adapter<ArticlesAdapter.ArticleViewHolder>(
         holder.binding.bookmarkArt.setOnClickListener {
             articleClickListener?.invoke(Action.BOOKMARK, articles[position])
         }
+        holder.binding.root.setOnClickListener {
+            articleClickListener?.invoke(Action.SHOW_ARTICLE, articles[position])
+        }
     }
 
     class ArticleViewHolder(val binding: ArticleItemBinding) : RecyclerView.ViewHolder(binding.root) {

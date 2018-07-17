@@ -3,15 +3,16 @@ package ru.nickmiller.magpie.ui.feed
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.MutableLiveData
+import android.content.Intent
 import ru.nickmiller.magpie.data.repository.ArticlesRepository
 import ru.nickmiller.magpie.model.Article
+import ru.nickmiller.magpie.ui.article.ArticleActivity
 import ru.nickmiller.magpie.utils.mainLog
 import ru.nickmiller.magpie.utils.switchMap
 
 
 class FeedViewModel(app: Application, val repository: ArticlesRepository, val bookmarks: Boolean) : AndroidViewModel(app) {
     private val refresh = MutableLiveData<RefreshAction>()
-    private val action = MutableLiveData<Action>()
 
     init {
         mainLog("FeedViewModel was created")
@@ -30,7 +31,7 @@ class FeedViewModel(app: Application, val repository: ArticlesRepository, val bo
                 else repository.bookmark(article)
             }
             ArticlesAdapter.Action.SHOW_ARTICLE -> {
-
+                app.applicationContext.startActivity(Intent(app.applicationContext, ArticleActivity::class.java))
             }
         }
     }

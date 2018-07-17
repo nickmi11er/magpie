@@ -15,6 +15,7 @@ import ru.nickmiller.magpie.data.repository.datasource.articles.CloudArticlesSto
 import ru.nickmiller.magpie.data.repository.datasource.articles.LocalArticlesStore
 import ru.nickmiller.magpie.data.repository.datasource.channels.CloudChannelStore
 import ru.nickmiller.magpie.data.repository.datasource.channels.LocalChannelStore
+import ru.nickmiller.magpie.ui.article.ArticleViewModel
 import ru.nickmiller.magpie.ui.channels.ChannelsViewModel
 import ru.nickmiller.magpie.ui.feed.FeedViewModel
 import ru.nickmiller.magpie.ui.channels.SearchViewModel
@@ -42,6 +43,10 @@ val feedModule = applicationContext {
     bean { CloudArticlesStore(get(), get(), get(), get()) }
     bean { ArticleMapper() }
     bean { FeedMapper(get()) }
+}
+
+val articleModule = applicationContext {
+    viewModel { ArticleViewModel(androidApplication()) }
 }
  
  
