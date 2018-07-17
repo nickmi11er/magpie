@@ -23,17 +23,17 @@ class FeedMapper(val artMapper: ArticleMapper) {
         return res
     }
 
-    fun transformFeedEntity(syndFeed: SyndFeed, iconUrl: String?): FeedEntity =
+    fun transformFeedEntity(syndFeed: SyndFeed, iconUrl: String?, channelId: String): FeedEntity =
             with(syndFeed) {
                 val articles: MutableList<ArticleEntity> = mutableListOf()
                 syndFeed.entries.forEach {
-                    articles.add(artMapper.transformArticleEntity(title, link, iconUrl, it as SyndEntryImpl))
+                    articles.add(artMapper.transformArticleEntity(title, link, iconUrl, channelId, it as SyndEntryImpl))
                 }
                 return FeedEntity(link, articles, description, copyright, null,
                         encoding, language, image?.url, author, title, iconUrl)
             }
 
-    fun syndToFeed(syndFeed: SyndFeed, iconUrl: String?) =
-        transform(transformFeedEntity(syndFeed, iconUrl))
+    fun syndToFeed(syndFeed: SyndFeed, iconUrl: String?, channelId: String) =
+        transform(transformFeedEntity(syndFeed, iconUrl, channelId))
 
 }

@@ -12,7 +12,7 @@ class ArticleMapper {
                 return Article(link = link, description = description, favorite = favorite,
                         cached = cached, cachedTime = cachedTime, imageUrl = imageUrl,
                         acLink = acLink, acTitle = acTitle, author = author, pubDate = pubDate,
-                        title = title, acIconUrl = acIconUrl)
+                        title = title, acIconUrl = acIconUrl, channelId = channelId)
             }
 
     fun transform(artEntityCollection: List<ArticleEntity>): MutableList<Article> {
@@ -25,23 +25,24 @@ class ArticleMapper {
 
     fun map(art: Article): ArticleEntity = with(art) {
         ArticleEntity(link!!, categories, description, favorite, cached, cachedTime,
-                imageUrl, acTitle, author, acLink, pubDate, title, acIconUrl)
+                imageUrl, acTitle, author, acLink, pubDate, title, acIconUrl, channelId)
     }
 
 
     fun map(arts: List<Article>): List<ArticleEntity> {
         val ents = mutableListOf<ArticleEntity>()
         arts.forEach { ents.add(map(it)) }
-        return ents
+        return ents.filter { it.pubDate != null }
     }
 
     private val IMAGE_MATCHER_GROUP = 2
 
-    fun transformArticleEntity(acTitle: String?, acLink: String?, iconUrl:String?,  syndArt: SyndEntryImpl): ArticleEntity {
+    fun transformArticleEntity(acTitle: String?, acLink: String?, iconUrl:String?, channelId: String, syndArt: SyndEntryImpl): ArticleEntity {
         val artEntity = transformArticleEntity(syndArt)
         artEntity.acTitle = acTitle
         artEntity.acLink = acLink
         artEntity.acIconUrl = iconUrl
+        artEntity.channelId = channelId
         return artEntity
     }
 
@@ -53,8 +54,8 @@ class ArticleMapper {
                 contents.first().value
             }
             val imageUrl = HtmlHelper.findImg(description, IMAGE_MATCHER_GROUP)
-            return ArticleEntity(link = link, title = title, author = author, pubDate = publishedDate,
-                    description = description, imageUrl = imageUrl)
+            return ArticleEntity(link = link, description = description, imageUrl = imageUrl, author = author,
+                    pubDate = publishedDate, title = title)
         }
     }
 }

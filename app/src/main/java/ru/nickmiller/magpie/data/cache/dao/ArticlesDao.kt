@@ -12,6 +12,9 @@ interface ArticlesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertArticle(art: ArticleEntity)
 
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun cacheArticles(arts: List<ArticleEntity>)
+
     @Delete
     fun deleteArticle(art: ArticleEntity)
 
@@ -29,6 +32,9 @@ interface ArticlesDao {
 
     @Query("SELECT * FROM articleentity WHERE favorite")
     fun getFavoriteArticles(): LiveData<List<ArticleEntity>>
+
+    @Query("DELETE FROM articleentity WHERE channelId = :feedId")
+    fun clearCacheWithChannel(feedId: String)
 
 
 //    @Query("SELECT * FROM articleentity WHERE link = :arg0")

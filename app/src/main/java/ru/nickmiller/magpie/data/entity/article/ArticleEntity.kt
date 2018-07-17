@@ -18,4 +18,5 @@ data class ArticleEntity(@PrimaryKey var link: String,
                          var acLink: String? = null,
                          var pubDate: Date? = null,
                          var title: String? = null,
-                         var acIconUrl: String? = null)
+                         var acIconUrl: String? = null,
+                         var channelId: String? = null)
