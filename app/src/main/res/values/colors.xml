@@ -7,5 +7,12 @@
     <color name="textMain">#4b4b4b</color>
     <color name="textSecondary">#9e9e9e</color>
 
+    <color name="colorGreenSoft">#80e798</color>
+    <color name="colorRedSoft">#ff9792</color>
+    <color name="colorBlueSoft">#92e6ff</color>
+    <color name="colorVioletSoft">#92a2ff</color>
+    <color name="colorOrangeSoft">#ffce92</color>
+    <color name="colorYellowSoft">#d2cb78</color>
+
     <color name="colorIcons">#424242</color>
 </resources>
