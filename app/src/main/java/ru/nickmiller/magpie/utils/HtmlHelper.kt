@@ -1,5 +1,8 @@
 package ru.nickmiller.magpie.utils
 
+import android.content.Context
+import android.os.Build
+import android.text.Html
 import java.util.regex.Pattern
 
 
@@ -16,6 +19,13 @@ class HtmlHelper {
 
             return null
         }
+
+        fun fromHtml(html: String) =
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY)
+                } else {
+                    Html.fromHtml(html)
+                }
 
 
         val ESCAPES: MutableMap<String, String> = mutableMapOf(

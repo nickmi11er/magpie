@@ -13,7 +13,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#fafafa"
+        android:background="#fffdfa"
         android:foreground="?attr/selectableItemBackground">
 
         <TextView
@@ -44,7 +44,7 @@
             android:ellipsize="end"
             android:fontFamily="@font/roboto_light"
             android:maxLines="3"
-            android:text="@{article.description}"
+            android:text="@{article.pureDescription}"
             android:textColor="@color/textMain"
             android:visibility="visible"
             app:layout_constraintEnd_toStartOf="@+id/article_image"

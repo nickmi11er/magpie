@@ -31,7 +31,9 @@ class FeedViewModel(app: Application, val repository: ArticlesRepository, val bo
                 else repository.bookmark(article)
             }
             ArticlesAdapter.Action.SHOW_ARTICLE -> {
-                app.applicationContext.startActivity(Intent(app.applicationContext, ArticleActivity::class.java))
+                val intent = Intent(app.applicationContext, ArticleActivity::class.java)
+                intent.putExtra("article_extra", article)
+                app.applicationContext.startActivity(intent)
             }
         }
     }

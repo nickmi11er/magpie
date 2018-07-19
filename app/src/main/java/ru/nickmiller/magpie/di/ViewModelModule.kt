@@ -46,7 +46,7 @@ val feedModule = applicationContext {
 }
 
 val articleModule = applicationContext {
-    viewModel { ArticleViewModel(androidApplication()) }
+    viewModel { ArticleViewModel(androidApplication(), get()) }
 }
  
  

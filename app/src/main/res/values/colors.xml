@@ -15,4 +15,9 @@
     <color name="colorYellowSoft">#d2cb78</color>
 
     <color name="colorIcons">#424242</color>
+
+    <color name="colorButtonGrey">#e0e0e0</color>
+    <color name="colorLink">#3db1ff</color>
+
+    <color name="backgroundWhiteColor">#fffdfa</color>
 </resources>

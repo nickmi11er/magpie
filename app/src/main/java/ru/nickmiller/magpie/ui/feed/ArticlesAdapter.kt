@@ -14,6 +14,16 @@ class ArticlesAdapter : RecyclerView.Adapter<ArticlesAdapter.ArticleViewHolder>(
     var articleClickListener: ((Action, Article) -> Unit)? = null
 
     fun addArticle(item: Article) {
+        if (item.pubDate == null) return
+        if (articles.contains(item)) {
+            val doubledArticle = articles.find { it.link == item.link }
+            val dInd = articles.indexOf(doubledArticle)
+            if (doubledArticle?.favorite != item.favorite) {
+                articles.remove(doubledArticle)
+                notifyItemRemoved(dInd)
+                addArticle(item)
+            } else return
+        }
         if (articles.contains(item) || item.pubDate == null) return
         var left = 0
         var right = articles.size
