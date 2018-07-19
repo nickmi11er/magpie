@@ -11,7 +11,7 @@ import ru.nickmiller.magpie.data.entity.feed.FeedEntity
 import ru.nickmiller.magpie.data.entity.feedChannel.FeedChannelEntity
 
 
-@Database(entities = [(FeedChannelEntity::class), (ArticleEntity::class)], version = 3)
+@Database(entities = [(FeedChannelEntity::class), (ArticleEntity::class)], version = 4)
 @TypeConverters(value = [(Converters::class)])
 abstract class AppDatabase : RoomDatabase() {
     abstract fun getChannelDao(): ChannelsDao

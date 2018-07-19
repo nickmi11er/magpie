@@ -1,8 +1,10 @@
 package ru.nickmiller.magpie.data.entity.article
 
 import com.rometools.rome.feed.synd.SyndEntryImpl
+import ru.magpie.magpie.data.net.NetHelper
 import ru.nickmiller.magpie.model.Article
 import ru.nickmiller.magpie.utils.HtmlHelper
+import ru.nickmiller.magpie.utils.mainLog
 
 
 class ArticleMapper {
@@ -12,7 +14,7 @@ class ArticleMapper {
                 return Article(link = link, description = description, favorite = favorite,
                         cached = cached, cachedTime = cachedTime, imageUrl = imageUrl,
                         acLink = acLink, acTitle = acTitle, author = author, pubDate = pubDate,
-                        title = title, acIconUrl = acIconUrl, channelId = channelId)
+                        title = title, acIconUrl = acIconUrl, channelId = channelId, pureDescription = pureDescription)
             }
 
     fun transform(artEntityCollection: List<ArticleEntity>): MutableList<Article> {
@@ -25,7 +27,7 @@ class ArticleMapper {
 
     fun map(art: Article): ArticleEntity = with(art) {
         ArticleEntity(link!!, categories, description, favorite, cached, cachedTime,
-                imageUrl, acTitle, author, acLink, pubDate, title, acIconUrl, channelId)
+                imageUrl, acTitle, author, acLink, pubDate, title, acIconUrl, channelId, pureDescription)
     }
 
 
@@ -55,7 +57,7 @@ class ArticleMapper {
             }
             val imageUrl = HtmlHelper.findImg(description, IMAGE_MATCHER_GROUP)
             return ArticleEntity(link = link, description = description, imageUrl = imageUrl, author = author,
-                    pubDate = publishedDate, title = title)
+                    pubDate = publishedDate, title = title, pureDescription = description?.let { HtmlHelper.correct(it) } )
         }
     }
 }
