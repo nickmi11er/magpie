@@ -12,6 +12,7 @@ import ru.nickmiller.magpie.R
 import ru.nickmiller.magpie.databinding.FragmentFeedBinding
 import ru.nickmiller.magpie.ui.MainActivity
 import ru.nickmiller.magpie.utils.FetchStatus
+import ru.nickmiller.magpie.utils.mainLog
 
 
 class FeedFragment : BaseFeedFragment<FragmentFeedBinding>() {
@@ -43,7 +44,7 @@ class FeedFragment : BaseFeedFragment<FragmentFeedBinding>() {
     }
 
     private fun initHandlers() {
-        setupRefreshListener { viewModel.refresh() }
+        setupRefreshListener { viewModel.refresh(true) }
         viewModel.articles.observe(this, Observer {
             it?.let {
                 adapter.addArticles(it)
@@ -54,12 +55,13 @@ class FeedFragment : BaseFeedFragment<FragmentFeedBinding>() {
             it?.let {
                 when(it.status) {
                     FetchStatus.PROGRESS -> {
-                        Log.d(this.javaClass.name, "ALL: ${it.all}    COMPLETED: ${it.completed}     ERRORS: ${it.errors}")
+                        mainLog("ALL: ${it.all}    COMPLETED: ${it.completed}     ERRORS: ${it.errors}")
                     }
                     FetchStatus.STARTED -> {
-
+                        (activity as MainActivity).setTitle("Updating...")
                     }
                     FetchStatus.COMPLETED -> {
+                        setTitle()
                         swipeContainer.isRefreshing = false
                         if (it.all == 0) {
                             infoMsg.text = "This is your feed. Subscribe some channels to read any articles."

@@ -10,20 +10,20 @@ import ru.magpie.magpie.data.net.NetHelper
 import ru.nickmiller.magpie.data.cache.dao.ChannelsDao
 import ru.nickmiller.magpie.data.entity.article.ArticleMapper
 import ru.nickmiller.magpie.data.entity.feed.FeedMapper
+import ru.nickmiller.magpie.data.entity.feedChannel.FeedChannelEntity
 import ru.nickmiller.magpie.model.Article
 import ru.nickmiller.magpie.model.Feed
 import ru.nickmiller.magpie.utils.FetchProgress
 import ru.nickmiller.magpie.utils.Resource
 import ru.nickmiller.magpie.utils.Status
-import ru.nickmiller.magpie.utils.switchMap
 
 
 class CloudArticlesStore(val netHelper: NetHelper, val mapper: FeedMapper, val artMapper: ArticleMapper, val dao: ChannelsDao) {
     val fetchStatus = MutableLiveData<FetchProgress>()
 
-    fun getArticles(): LiveData<List<Article>> = dao.getAllSubs().switchMap { channels ->
+    fun getArticles(channels: List<FeedChannelEntity>): LiveData<List<Article>> {
         fetchStatus.postValue(FetchProgress.started(channels.size))
-        MutableLiveData<List<Article>>().apply {
+        return MutableLiveData<List<Article>>().apply {
             Single.fromCallable {
                 val res = mutableListOf<Resource<Feed>>()
                 var completed = 0

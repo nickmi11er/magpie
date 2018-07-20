@@ -19,7 +19,12 @@ class FeedViewModel(app: Application, val repository: ArticlesRepository, val bo
     }
 
     val articles
-        get() = refresh.switchMap { repository.getArticles(bookmarks) }
+        get() = refresh.switchMap {
+            when (it) {
+                FeedViewModel.RefreshAction.REFRESH -> repository.getArticles(bookmarks)
+                FeedViewModel.RefreshAction.FORCE_REFRESH -> repository.getArticles(bookmarks, true)
+            }
+        }
 
     val fetchStatus
         get() = repository.fetchStatus
@@ -38,7 +43,9 @@ class FeedViewModel(app: Application, val repository: ArticlesRepository, val bo
         }
     }
 
-    fun refresh() = refresh.postValue(RefreshAction.REFRESH)
+    fun refresh(forceRefresh: Boolean = false) =
+            if (forceRefresh) refresh.postValue(RefreshAction.FORCE_REFRESH)
+            else refresh.postValue(RefreshAction.REFRESH)
 
     override fun onCleared() {
         mainLog("FeedViewModel on cleared")
@@ -46,7 +53,8 @@ class FeedViewModel(app: Application, val repository: ArticlesRepository, val bo
     }
 
     enum class RefreshAction {
-        REFRESH
+        REFRESH,
+        FORCE_REFRESH
     }
 
     enum class Action {
