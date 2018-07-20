@@ -1,10 +1,23 @@
 package ru.nickmiller.magpie.data.entity.article
 
+import com.rometools.rome.feed.synd.SyndEnclosure
 import com.rometools.rome.feed.synd.SyndEntryImpl
-import ru.magpie.magpie.data.net.NetHelper
 import ru.nickmiller.magpie.model.Article
+import ru.nickmiller.magpie.model.Enclosure
 import ru.nickmiller.magpie.utils.HtmlHelper
-import ru.nickmiller.magpie.utils.mainLog
+
+
+fun SyndEnclosure.syndMap(): EnclosureEntity = EnclosureEntity(url, type, length)
+
+fun List<SyndEnclosure>.syndMap(): List<EnclosureEntity> = map { it.syndMap() }
+
+fun EnclosureEntity.transform() = Enclosure(link, type, length)
+
+fun List<EnclosureEntity>.transform(): MutableList<Enclosure> = map { it.transform() }.toMutableList()
+
+fun Enclosure.encMap(): EnclosureEntity = EnclosureEntity(url, type, length)
+
+fun List<Enclosure>.encMap(): List<EnclosureEntity> = map { it.encMap() }
 
 
 class ArticleMapper {
@@ -14,20 +27,19 @@ class ArticleMapper {
                 return Article(link = link, description = description, favorite = favorite,
                         cached = cached, cachedTime = cachedTime, imageUrl = imageUrl,
                         acLink = acLink, acTitle = acTitle, author = author, pubDate = pubDate,
-                        title = title, acIconUrl = acIconUrl, channelId = channelId, pureDescription = pureDescription)
+                        title = title, acIconUrl = acIconUrl, channelId = channelId, pureDescription = pureDescription,
+                        enclosures = enclosures.transform())
             }
 
-    fun transform(artEntityCollection: List<ArticleEntity>): MutableList<Article> {
-        val articles = mutableListOf<Article>()
-        artEntityCollection.forEach {
-            articles.add(transform(it))
-        }
-        return articles
-    }
+    fun transform(artEntityCollection: List<ArticleEntity>): MutableList<Article> =
+            mutableListOf<Article>().apply {
+                artEntityCollection.forEach { add(transform(it)) }
+            }
+
 
     fun map(art: Article): ArticleEntity = with(art) {
         ArticleEntity(link!!, categories, description, favorite, cached, cachedTime,
-                imageUrl, acTitle, author, acLink, pubDate, title, acIconUrl, channelId, pureDescription)
+                imageUrl, acTitle, author, acLink, pubDate, title, acIconUrl, channelId, pureDescription, enclosures.encMap())
     }
 
 
@@ -39,7 +51,7 @@ class ArticleMapper {
 
     private val IMAGE_MATCHER_GROUP = 2
 
-    fun transformArticleEntity(acTitle: String?, acLink: String?, iconUrl:String?, channelId: String, syndArt: SyndEntryImpl): ArticleEntity {
+    fun transformArticleEntity(acTitle: String?, acLink: String?, iconUrl: String?, channelId: String, syndArt: SyndEntryImpl): ArticleEntity {
         val artEntity = transformArticleEntity(syndArt)
         artEntity.acTitle = acTitle
         artEntity.acLink = acLink
@@ -57,7 +69,8 @@ class ArticleMapper {
             }
             val imageUrl = HtmlHelper.findImg(description, IMAGE_MATCHER_GROUP)
             return ArticleEntity(link = link, description = description, imageUrl = imageUrl, author = author,
-                    pubDate = publishedDate, title = title, pureDescription = description?.let { HtmlHelper.correct(it) } )
+                    pubDate = publishedDate, title = title, pureDescription = description?.let { HtmlHelper.correct(it) },
+                    enclosures = enclosures.syndMap())
         }
     }
 }

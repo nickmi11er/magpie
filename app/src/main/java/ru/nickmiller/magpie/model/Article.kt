@@ -2,7 +2,7 @@ package ru.nickmiller.magpie.model
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
-import java.util.Date
+import java.util.*
 
 
 @Parcelize
@@ -20,7 +20,8 @@ data class Article(var link: String? = null,
                    var title: String? = null,
                    var acIconUrl: String? = null,
                    var channelId: String? = null,
-                   var pureDescription: String? = null) : Parcelable {
+                   var pureDescription: String? = null,
+                   var enclosures: MutableList<Enclosure> = mutableListOf()) : Parcelable {
 
     override fun equals(other: Any?): Boolean {
         return this.link == (other as Article).link
@@ -28,3 +29,9 @@ data class Article(var link: String? = null,
 
     override fun hashCode(): Int = link!!.hashCode()
 }
+
+
+@Parcelize
+data class Enclosure(var url: String,
+                     var type: String? = null,
+                     var length: Long = 0L) : Parcelable

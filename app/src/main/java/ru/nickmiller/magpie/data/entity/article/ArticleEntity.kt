@@ -20,4 +20,11 @@ data class ArticleEntity(@PrimaryKey var link: String,
                          var title: String? = null,
                          var acIconUrl: String? = null,
                          var channelId: String? = null,
-                         var pureDescription: String? = null)
+                         var pureDescription: String? = null,
+                         var enclosures: List<EnclosureEntity> = mutableListOf())
+
+
+@Entity
+data class EnclosureEntity(@PrimaryKey var link: String,
+                     var type: String?,
+                     var length: Long)
